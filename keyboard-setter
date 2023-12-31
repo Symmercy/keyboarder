@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#tiny script for selecting keyboard layout while in X
+rtrim (){
+ printf '%s\n' "${1%%$2}"
+}
+
+# declare delimiter
+delimiter=" -"
+
+# declare languages
+languages="hr - Croatian\nus - English\nCancel"
+
+# Sending languages to Dmenu
+selected=$(echo -e "$languages" | dmenu)
+
+if test "$selected" != "Cancel" ;then
+# Trimming
+trimmed="$(rtrim $selected $delimiter)"
+setxkbmap $trimmed
+fi
